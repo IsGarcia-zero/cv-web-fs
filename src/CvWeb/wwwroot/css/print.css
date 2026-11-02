@@ -1,0 +1,41 @@
+/* Impresión: una hoja clara, una columna, sin controles ni animaciones, con todo el contenido. */
+@media print {
+    :root, :root[data-theme="light"] {
+        --bg: #fff; --surface: #fff; --surface-2: #fff; --ink: #000; --ink-2: #222; --ink-3: #555;
+        --line: #ccc; --accent: #00527f; --accent-2: #5a2a80; --accent-3: #2f5d2f;
+        --accent-soft: #eef4f8; --shadow: none;
+    }
+    body { background: #fff; font-size: 10.5pt; }
+    *, ::before, ::after { animation: none !important; transition: none !important; }
+    .tabs-wrap { display: none !important; }
+    .side h1 a { background: none; color: var(--ink); }
+    .portrait::before, .block-title::after { display: none; }
+    .case { padding-top: 0; }
+    .case h3, .case-label { break-after: avoid; }
+    .case-metrics, .case-role, .shots img { break-inside: avoid; }
+    .case-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .activity, .career, .lang-chart, .arch, .stats { break-inside: avoid; }
+    .activity .heatmap { max-width: 360px; margin-inline: auto; }
+    .block-title, .sub-title, .activity-head { break-after: avoid; }
+    .shot { break-inside: avoid; }
+    .shot img { max-height: 65mm; }
+    .shot-expand { display: none; }
+    /* En papel sólo el contenido: fuera los visuales de pantalla que alargaban el PDF a 10 hojas. */
+    #systems, #interests, .case-gallery, .case .arch, .physarum, .cover-art, .activity, .career, .lang-chart,
+    #skills .sub-title, #skills .notes { display: none !important; }
+    .row-meta:has(.cover-art, .physarum) { flex-direction: row; }
+    .automaton, .badge, .side-nav, .controls, .chips, .footer, .progress, .spotlight, .to-top, .toast, .skip, .more, .link-btn { display: none !important; }
+    .bullets.collapsed .extra { display: list-item; }
+    .anim .reveal { opacity: 1 !important; translate: 0 !important; }
+    .anim .reveal:not(.visible) .bar-fill { scale: 1 1; }
+    .heatmap rect { opacity: 1 !important; scale: 1 !important; }
+    .cover path, .anim .reveal:not(.visible) .cover path { clip-path: none !important; }
+    .arch .packet { display: none; }
+    .shell { display: block; padding: 0; max-width: none; }
+    .side, .content { position: static; width: auto; max-height: none; padding: 0; }
+    .block { padding-top: 1.25rem; }
+    .block-title { position: static; margin: 0 0 .5rem; padding: 0; background: none; backdrop-filter: none; }
+    .row { padding: .6rem 0; margin: 0; break-inside: avoid; opacity: 1 !important; grid-template-columns: 8rem 1fr; }
+    .rows:hover > .row:not(:hover) { opacity: 1; }
+    a { color: inherit; }
+}

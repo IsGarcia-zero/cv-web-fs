@@ -1,0 +1,134 @@
+/* ── Diagramas, trayectoria, barras y Physarum ── */
+
+/* Pestañas desplazables (Material 3): ‹ › y desvanecido sólo hacia donde hay más (tabs.js). */
+.tabs-wrap { position: relative; margin-bottom: var(--s2); border-bottom: 1px solid var(--line); }
+.tabs {
+    display: flex; gap: .25rem; overflow-x: auto; scrollbar-width: none;
+    scroll-behavior: smooth; overscroll-behavior-x: contain;
+    --fade-l: #000; --fade-r: #000;
+    -webkit-mask-image: linear-gradient(90deg, var(--fade-l), #000 56px, #000 calc(100% - 56px), var(--fade-r));
+    mask-image: linear-gradient(90deg, var(--fade-l), #000 56px, #000 calc(100% - 56px), var(--fade-r));
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tabs-wrap[data-left] .tabs { --fade-l: transparent; }
+.tabs-wrap[data-right] .tabs { --fade-r: transparent; }
+.tabs-btn {
+    position: absolute; top: 50%; z-index: 2; translate: 0 -50%;
+    display: grid; place-items: center; width: 36px; height: 36px; padding: 0 0 2px;
+    border: 1px solid var(--line); border-radius: 999px;
+    background: var(--surface-2); color: var(--ink); font-size: 1.2rem; line-height: 1;
+    box-shadow: var(--shadow);
+    opacity: 0; scale: .7; pointer-events: none;
+    transition: opacity .2s var(--ease), scale .2s var(--ease), color .2s;
+}
+.tabs-btn.prev { left: -6px; }
+.tabs-btn.next { right: -6px; }
+.tabs-btn:hover { color: var(--accent); }
+.tabs-wrap[data-left] .tabs-btn.prev, .tabs-wrap[data-right] .tabs-btn.next { opacity: 1; scale: 1; pointer-events: auto; }
+.tab {
+    position: relative; flex: none; min-height: var(--target); padding: 0 1rem;
+    border: 0; background: none; color: var(--ink-3); font-weight: 600; font-size: var(--step--1);
+    scroll-margin-inline: 48px;
+    transition: color .2s var(--ease);
+}
+/* Subrayado hecho de celdas que se encienden una tras otra (steps). */
+.tab::after {
+    content: ""; position: absolute; left: .5rem; right: .5rem; bottom: -1px; height: 3px;
+    background: repeating-linear-gradient(90deg, var(--accent) 0 5px, transparent 5px 7px);
+    clip-path: inset(0 100% 0 0); transition: clip-path .45s steps(10);
+}
+.tab:hover { color: var(--ink); }
+.tab:hover::after { clip-path: inset(0 70% 0 0); }
+.tab.on { color: var(--ink); }
+.tab.on::after { clip-path: inset(0); }
+.system-panel { animation: rise .5s var(--ease-emphasized) both; }
+.system-summary { margin: 0 0 .75rem; }
+.system-panel .arch { margin: 0; }
+/* Las cajas aparecen en orden al abrir cada pestaña. */
+.system-panel .node, .system-panel .group { animation: fade .5s var(--ease) both; }
+.system-panel .node:nth-of-type(odd) { animation-delay: .1s; }
+.system-panel .node:nth-of-type(even) { animation-delay: .2s; }
+
+/* Trayectoria tipo Gantt */
+.career { margin: 0 0 var(--s4); padding: var(--s3); }
+.career h3 { margin: 0 0 var(--s2); font-size: var(--step-0); }
+.timeline { display: block; width: 100%; height: auto; overflow: visible; font: 500 10.5px var(--font); }
+.timeline .tick { stroke: var(--line); }
+.timeline .tick-label { font: 500 9px var(--mono); fill: var(--ink-3); }
+.timeline .span text { fill: var(--ink-2); }
+.timeline .span rect { transform-box: fill-box; transform-origin: left; transition: scale .9s var(--ease-emphasized); transition-delay: calc(var(--i, 0) * 120ms); }
+.timeline .study rect { fill: var(--accent-2); }
+.timeline .research rect { fill: var(--accent); }
+.timeline .job rect { fill: var(--accent-3); }
+.anim .reveal:not(.visible) .timeline .span rect { scale: 0 1; }
+.timeline .milestone path { fill: var(--ink); transform-box: fill-box; transform-origin: center; transition: scale .4s var(--ease-emphasized); transition-delay: calc(.6s + var(--i, 0) * 120ms); }
+.anim .reveal:not(.visible) .timeline .milestone path { scale: 0; }
+.timeline .milestone:hover path { fill: var(--accent); }
+.career-legend { display: flex; flex-wrap: wrap; gap: .35rem 1.1rem; list-style: none; margin: .75rem 0 0; padding: 0; font-size: var(--step--2); color: var(--ink-3); }
+.career-legend li { display: inline-flex; align-items: center; gap: .4rem; }
+.key { width: 14px; height: 6px; border-radius: 3px; }
+.key.study { background: var(--accent-2); }
+.key.research { background: var(--accent); }
+.key.job { background: var(--accent-3); }
+.key.mark { width: 8px; height: 8px; border-radius: 1px; rotate: 45deg; background: var(--ink); }
+@media (max-width: 639px) {
+    .career { overflow-x: auto; }
+    .timeline { min-width: 560px; }
+}
+
+/* Commits por lenguaje */
+.lang-chart { margin: 0 0 var(--s4); padding: var(--s3); }
+.lang-chart h3 { margin: 0 0 var(--s2); font-size: var(--step-0); }
+.lang-chart figcaption { margin-top: .75rem; font-size: var(--step--2); color: var(--ink-3); }
+.lang-bars { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; }
+.lang-bars li { display: grid; grid-template-columns: 7.5rem 1fr 2.5rem; align-items: center; gap: .75rem; font-size: var(--step--1); }
+.lb-name { color: var(--ink); font-weight: 500; }
+.lb-value { font: 600 var(--step--2) var(--mono); color: var(--ink-3); text-align: right; font-variant-numeric: tabular-nums; }
+.lb-track { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.lb-fill {
+    display: block; height: 100%; width: var(--w); border-radius: inherit;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform-origin: left; transition: scale 1s var(--ease-emphasized); transition-delay: calc(var(--i, 0) * 70ms);
+}
+.anim .reveal:not(.visible) .lb-fill { scale: 0 1; }
+.lang-bars li:hover .lb-name, .lang-bars li:hover .lb-value { color: var(--accent); }
+
+/* Simulación de Physarum en la tarjeta del proyecto de tesis */
+.physarum { position: relative; margin-bottom: .6rem; }
+.physarum canvas {
+    display: block; width: 100%; aspect-ratio: 2 / 1;
+    border-radius: 8px; border: 1px solid var(--line); background: var(--surface);
+}
+.physarum span {
+    position: absolute; left: .4rem; bottom: .35rem; padding: 0 .35rem; border-radius: 4px;
+    font: 600 9px var(--mono); letter-spacing: .04em; text-transform: none;
+    color: var(--accent-3); background: color-mix(in srgb, var(--bg) 70%, transparent);
+}
+
+/* Laboratorio de autómatas */
+.lab { margin: 0; display: grid; gap: var(--s2); }
+.lab-stage {
+    position: relative; overflow: hidden; border-radius: var(--radius);
+    border: 1px solid var(--line); background: var(--surface);
+}
+.lab-stage canvas { display: block; width: 100%; aspect-ratio: 2 / 1; cursor: crosshair; image-rendering: pixelated; }
+.lab-stage::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+    box-shadow: inset 0 0 40px color-mix(in srgb, var(--bg) 60%, transparent);
+}
+.lab-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .25rem 1rem; }
+.lab-head h3 { margin: 0; font-size: var(--step-1); }
+.lab-author { font: 500 var(--step--2) var(--mono); color: var(--ink-3); }
+.lab figcaption > p { margin: .5rem 0 0; }
+.lab-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin-top: .75rem; }
+.lab-hint { margin: 0; font-size: var(--step--1); color: var(--ink-3); }
+.lab-controls { display: flex; gap: .5rem; }
+
+@media (prefers-reduced-motion: reduce) {
+    .system-panel, .system-panel .node, .system-panel .group { animation: none !important; }
+    .timeline .span rect, .timeline .milestone path, .lb-fill { scale: 1 !important; }
+}
+@media print {
+    .tabs, .physarum, #lab { display: none !important; }
+    .timeline .span rect, .timeline .milestone path, .lb-fill { scale: 1 !important; }
+}

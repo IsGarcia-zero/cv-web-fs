@@ -1,0 +1,167 @@
+/* ── Secciones ── */
+.block { padding-top: var(--s12); }
+.block:first-child { padding-top: 0; }
+/* Rótulo pequeño; en móvil queda pegado arriba mientras se recorre su sección. */
+.block-title {
+    position: sticky; top: 0; z-index: 5;
+    margin: 0 calc(-1 * clamp(16px, 5vw, 4rem)) var(--s3);
+    padding: 1rem clamp(16px, 5vw, 4rem);
+    font: 700 var(--step--2)/1 var(--font); text-transform: uppercase; letter-spacing: .14em;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    backdrop-filter: blur(10px);
+}
+@media (min-width: 1024px) {
+    .block-title { position: static; margin: 0 0 var(--s3); padding: 0; background: none; backdrop-filter: none; color: var(--ink-3); }
+}
+.sub-title { margin: var(--s6) 0 var(--s2); font: 700 var(--step--2)/1 var(--font); text-transform: uppercase; letter-spacing: .14em; color: var(--ink-3); }
+
+/* Sobre mí */
+.lead { margin: 0 0 var(--s3); font-size: var(--step-1); line-height: 1.75; color: var(--ink-2); }
+.highlights { list-style: none; margin: 0 0 var(--s4); padding: 0; display: grid; gap: .6rem; }
+.highlights li { position: relative; padding-left: 1.4rem; }
+.highlights li::before {
+    content: ""; position: absolute; left: 0; top: .72em; width: .5rem; height: .5rem;
+    border-radius: 2px; background: var(--accent); rotate: 45deg; scale: .8;
+}
+.stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    margin: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+}
+.stat { padding: var(--s2); border-right: 1px solid var(--line); margin-right: -1px; }
+.stat dt { font-size: var(--step--2); color: var(--ink-3); line-height: 1.35; }
+.stat dd {
+    margin: .3rem 0 0; font: 700 clamp(1.4rem, 1.2rem + .8vw, 1.8rem)/1 var(--font);
+    font-variant-numeric: tabular-nums; color: var(--ink); letter-spacing: -.02em;
+}
+
+/* Filas de lista (experiencia, proyectos, logros…): metadatos a la izquierda, contenido a la derecha. */
+.rows { display: grid; gap: var(--s2); }
+.row {
+    position: relative; display: grid; gap: .35rem var(--s3);
+    padding: var(--s3) 0; border-radius: var(--radius);
+    transition: background-color .25s var(--ease), box-shadow .25s var(--ease), opacity .25s var(--ease);
+}
+.row-meta {
+    display: flex; flex-wrap: wrap; gap: .25rem .75rem; align-items: baseline;
+    font: 600 var(--step--2)/1.6 var(--font); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3);
+}
+.row-meta .meta-date { font-weight: 500; }
+.row-body > :first-child { margin-top: 0; }
+.row h3 { margin: 0; font-size: var(--step-0); font-weight: 600; line-height: 1.4; }
+.row p { margin: .5rem 0 0; }
+.org { color: var(--ink-2); font-weight: 500; }
+.row h3 .org { color: var(--ink); }
+.at { color: var(--ink-3); }
+
+@media (min-width: 640px) {
+    .row { grid-template-columns: 9rem 1fr; }
+    .row-meta { flex-direction: column; gap: .2rem; padding-top: .2rem; }
+}
+@media (hover: hover) and (min-width: 1024px) {
+    .row { padding: var(--s3); margin: 0 calc(-1 * var(--s3)); }
+    .row:hover { background: var(--row-hover); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent), var(--shadow); }
+    .rows:hover > .row:not(:hover) { opacity: .5; }
+}
+
+/* Título-enlace: toda la fila es clicable y la flecha se desplaza. */
+.row-link { color: var(--ink); }
+.row-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.row-link:hover, .row-link:focus-visible { color: var(--accent); }
+.row-link:focus-visible { outline: none; }
+.row:has(.row-link:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.arrow { display: inline-block; transition: translate .2s var(--ease); }
+.row:hover .arrow { translate: 2px -2px; }
+
+.bullets { margin: .75rem 0 0; padding-left: 1.1rem; }
+.bullets li { margin: .4rem 0; padding-left: .25rem; }
+.bullets li::marker { color: var(--ink-3); }
+.bullets.collapsed .extra { display: none; }
+.bullets:not(.collapsed) .extra { animation: unfold .35s var(--ease-emphasized) both; }
+.more {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: .5rem;
+    min-height: var(--target); margin-top: .25rem; padding: 0;
+    border: 0; background: none; color: var(--ink); font-weight: 600; font-size: var(--step--1);
+}
+.more:hover { color: var(--accent); }
+.chev { width: .45rem; height: .45rem; border: solid currentColor; border-width: 0 1.5px 1.5px 0; rotate: 45deg; translate: 0 -2px; transition: rotate .2s var(--ease); }
+.chev.up { rotate: 225deg; translate: 0 2px; }
+
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; margin: .9rem 0 0; padding: 0; }
+.tags li {
+    padding: .2rem .7rem; border-radius: 999px;
+    font: 500 var(--step--2)/1.6 var(--font);
+    color: var(--accent); background: var(--accent-soft);
+}
+.status { font-size: var(--step--1); color: var(--ink-3); font-style: italic; }
+.category { color: var(--ink-2); }
+.cat-work { color: var(--accent-3); }
+.cat-research { color: var(--accent); }
+.cat-personal { color: var(--accent-2); }
+
+/* Chips de filtro (Material 3) */
+.chips { display: flex; flex-wrap: wrap; gap: var(--s1); margin-bottom: var(--s2); }
+.chip {
+    display: inline-flex; align-items: center; gap: .45rem;
+    min-height: 36px; padding: 0 .85rem; border-radius: 8px;
+    border: 1px solid var(--line); background: none; color: var(--ink-2);
+    font-size: var(--step--1); font-weight: 500;
+    transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s;
+}
+.chip:hover { background: var(--state-hover); color: var(--ink); }
+.chip.on { color: var(--ink); background: var(--accent-soft); border-color: transparent; }
+.chip-check { display: none; color: var(--accent); font-weight: 700; }
+.chip.on .chip-check { display: inline; }
+.chip-count { font: 500 var(--step--2) var(--mono); color: var(--ink-3); }
+
+/* Notas en rejilla: habilidades blandas y especialización */
+.notes {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: var(--s3) var(--s4);
+}
+.notes h4 { margin: 0; font-size: var(--step-0); font-weight: 600; }
+.notes p { margin: .35rem 0 0; font-size: var(--step--1); }
+.notes .tags { margin-top: .6rem; }
+
+/* Idiomas */
+.langs-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s3); }
+.lang-head { display: flex; justify-content: space-between; gap: var(--s2); margin-bottom: .5rem; font-size: var(--step--1); }
+.bar { height: 4px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.bar-fill {
+    width: var(--level); height: 100%; border-radius: inherit; background: var(--accent);
+    transform-origin: left; transition: scale 1s var(--ease-emphasized);
+}
+.anim .reveal:not(.visible) .bar-fill { scale: 0 1; }
+
+/* Aparición al hacer scroll: sólo si cv.js marcó la página */
+.anim .reveal { opacity: 0; translate: 0 16px; transition: opacity .6s var(--ease), translate .6s var(--ease); }
+.anim .reveal.visible { opacity: 1; translate: 0; }
+
+@keyframes unfold { from { opacity: 0; translate: 0 -6px; } }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, ::before, ::after { animation: none !important; transition: none !important; }
+    .anim .reveal { opacity: 1; translate: 0; }
+    .progress, .spotlight { display: none; }
+}
+
+/* Contacto: cierre con llamada a la acción. */
+.contact { padding: var(--s3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.contact h3 { margin: 0 0 .5rem; font-size: var(--step-3); }
+.contact p { margin: 0 0 var(--s2); color: var(--ink-2); max-width: 60ch; }
+.contact-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.btn {
+    display: inline-flex; align-items: center; min-height: var(--target); padding: 0 1rem;
+    border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink);
+    font: 500 var(--step--1) var(--font); text-decoration: none; cursor: pointer;
+    transition: background .2s var(--ease), border-color .2s var(--ease);
+}
+.btn:hover { background: var(--state-hover); border-color: color-mix(in srgb, var(--ink) 20%, transparent); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
+.btn.primary:hover { background: color-mix(in srgb, var(--accent) 88%, var(--ink)); }
+.btn.ghost { border-style: dashed; color: var(--ink-2); }
+@media print { #contact .contact-actions .btn:not(.primary) { display: none; } #contact .btn.primary { background: none; color: inherit; padding: 0; border: 0; } }
+a.ctl { display: inline-flex; align-items: center; text-decoration: none; }

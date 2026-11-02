@@ -1,0 +1,48 @@
+/* Casos de estudio: cifras comparables y una lectura de reto a resultado. */
+.case { min-width: 0; padding: var(--s3) 0 0; }
+.case h3 { margin: 0; font-size: var(--step-3); line-height: 1.35; }
+.case-tagline { margin: .85rem 0 var(--s3); color: var(--ink-2); }
+.case-metrics {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px; margin: 0 0 var(--s3); overflow: hidden;
+    border: 1px solid var(--line); border-radius: var(--radius); background: var(--line);
+}
+.case-metrics > div {
+    display: flex; flex-direction: column; gap: .65rem;
+    min-width: 0; padding: 1rem .65rem; background: var(--surface);
+}
+.case-metrics dd {
+    order: -1; margin: 0; color: var(--accent);
+    font: 700 clamp(1.35rem, 1rem + .65vw, 1.65rem)/1.2 var(--mono);
+    font-variant-numeric: tabular-nums; letter-spacing: -.04em;
+}
+.case-metrics dt { font-size: var(--step--2); line-height: 1.5; color: var(--ink-2); }
+.case .arch, .case .physarum { margin: 0 0 var(--s3); }
+.case-label {
+    margin: var(--s3) 0 .5rem; color: var(--accent);
+    font: 600 var(--step--2)/1.5 var(--mono); text-transform: uppercase; letter-spacing: .1em;
+}
+.case-label + p, .case-label + .bullets { margin-top: 0; }
+.case-role {
+    margin: var(--s3) 0 0; padding: .85rem 1rem; border-left: 2px solid var(--accent);
+    background: var(--surface); font-size: var(--step--1);
+}
+.case .status { margin: var(--s2) 0 0; }
+.case-gallery { margin-bottom: var(--s3); }
+.shot-disclosure { margin: 0 0 .75rem; color: var(--ink-3); font-size: var(--step--2); }
+.shots { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s3); }
+.shot { min-width: 0; margin: 0; }
+.shot a { display: block; position: relative; border: 1px solid var(--line); border-radius: var(--radius); }
+.shot img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: contain; border-radius: inherit; background: #f4f8fc; }
+.shot figcaption { margin-top: .5rem; font-size: var(--step--2); color: var(--ink-2); line-height: 1.5; }
+.shot-expand {
+    position: absolute; right: .5rem; bottom: .5rem; padding: .3rem .6rem;
+    color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+    font-size: var(--step--2); box-shadow: var(--shadow);
+}
+.shot a:hover .shot-expand, .shot a:focus-visible .shot-expand { color: var(--accent); }
+@media (max-width: 639px) {
+    .case-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .case-metrics > div { padding: 1rem; }
+    .case-metrics dd { font-size: 1.65rem; }
+}

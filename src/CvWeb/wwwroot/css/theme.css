@@ -1,0 +1,58 @@
+/* Tokens: oscuro zinc + cian; claro marfil + terracota. Un solo acento por tema, el resto en neutros.
+   Todos los textos pasan WCAG 2.2 AA (≥ 4.5:1) sobre su fondo. */
+:root {
+    --bg: #0e0f12;
+    --surface: #16171b;
+    --surface-2: #1d1e23;
+    --ink: #f4f4f5;
+    --ink-2: #a1a1aa;
+    --ink-3: #8e8e98;
+    --accent: #67e8f9;
+    --accent-2: #c084fc;
+    --accent-3: #6ee7b7;
+    --on-accent: #0e0f12;
+    --line: color-mix(in srgb, var(--ink) 9%, transparent);
+    --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
+    --state-hover: color-mix(in srgb, var(--ink) 5%, transparent);
+    --row-hover: color-mix(in srgb, var(--surface-2) 70%, transparent);
+    --spot: color-mix(in srgb, var(--accent) 7%, transparent);
+    --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25);
+
+    --font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    --mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+    --step--2: .75rem;
+    --step--1: clamp(.82rem, .8rem + .1vw, .88rem);
+    --step-0: clamp(.95rem, .92rem + .15vw, 1.02rem);
+    --step-1: clamp(1.05rem, 1rem + .25vw, 1.15rem);
+    --step-3: clamp(1.25rem, 1.1rem + .6vw, 1.5rem);
+    --step-5: clamp(2.3rem, 1.6rem + 3vw, 3.2rem);
+    --s1: .5rem;
+    --s2: 1rem;
+    --s3: 1.5rem;
+    --s4: 2rem;
+    --s6: 3rem;
+    --s12: 6rem;
+    --radius: 10px;
+    --target: 44px;
+    --ease: cubic-bezier(0.2, 0, 0, 1);
+    --ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
+    color-scheme: dark;
+    accent-color: var(--accent);
+}
+
+:root[data-theme="light"] {
+    --bg: #f5edd6;
+    --surface: #efe4ca;
+    --surface-2: #e8dabb;
+    --ink: #1e1208;
+    --ink-2: #4f3620;
+    --ink-3: #6a4a2d;
+    --accent: #963f17;
+    --accent-2: #8b3a62;
+    --accent-3: #3f5f30;
+    --on-accent: #ffffff;
+    --row-hover: color-mix(in srgb, var(--surface-2) 75%, transparent);
+    --spot: color-mix(in srgb, var(--accent) 6%, transparent);
+    --shadow: 0 1px 2px rgb(80 35 10 / .08), 0 6px 18px rgb(80 35 10 / .07);
+    color-scheme: light;
+}

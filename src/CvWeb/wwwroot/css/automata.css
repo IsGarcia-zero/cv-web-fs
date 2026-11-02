@@ -1,0 +1,112 @@
+/* ── Autómatas en cada acción: celdas, rejillas y planeadores en los estados de la interfaz ── */
+
+/* Carga: un planeador del Juego de la Vida (fases calculadas con la regla B3/S23). */
+.loader {
+    width: 7px; height: 7px; margin: 38vh auto 1.25rem; translate: -14px -14px;
+    animation: glider .8s steps(1, end) infinite, glide 6.4s steps(8, end) infinite;
+}
+@keyframes glider {
+    0% { box-shadow: 0 14px var(--accent), 7px 0 var(--accent), 7px 14px var(--accent), 14px 7px var(--accent), 14px 14px var(--accent); }
+    25% { box-shadow: 0 7px var(--accent), 7px 14px var(--accent), 7px 21px var(--accent), 14px 7px var(--accent), 14px 14px var(--accent); }
+    50% { box-shadow: 0 14px var(--accent), 7px 21px var(--accent), 14px 7px var(--accent), 14px 14px var(--accent), 14px 21px var(--accent); }
+    75% { box-shadow: 7px 7px var(--accent), 7px 21px var(--accent), 14px 14px var(--accent), 14px 21px var(--accent), 21px 14px var(--accent); }
+}
+@keyframes glide { from { translate: -42px -42px; } to { translate: 14px 14px; } }
+.loading { margin-top: 0; }
+
+/* Foco: borde punteado como una fila de celdas. */
+:focus-visible { outline: 2px dashed var(--accent); outline-offset: 3px; }
+/* Dentro de la barra desplazable el contorno va hacia adentro para que no se recorte. */
+.tab:focus-visible { outline-offset: -4px; border-radius: 8px; }
+
+/* Barra de progreso hecha de celdas. */
+.progress {
+    height: 3px;
+    background: repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 8px);
+}
+
+/* Fila al pasar el puntero: aparece una rejilla de células que se desvanece hacia la derecha. */
+.row::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background-image: radial-gradient(color-mix(in srgb, var(--accent) 30%, transparent) 1px, transparent 1.6px);
+    background-size: 10px 10px;
+    -webkit-mask-image: linear-gradient(100deg, #000, transparent 45%);
+    mask-image: linear-gradient(100deg, #000, transparent 45%);
+    opacity: 0; transition: opacity .35s var(--ease);
+}
+@media (hover: hover) and (min-width: 1024px) {
+    .row:hover::before { opacity: 1; }
+}
+
+/* Viñetas de destacados: un planeador de 3×3. */
+.highlights li::before {
+    width: 9px; height: 9px; top: .5em; rotate: 0deg; scale: 1; border-radius: 0;
+    background: var(--accent);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 3'%3E%3Cpath d='M1 0h1v1H1zM2 1h1v1H2zM0 2h3v1H0z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 3'%3E%3Cpath d='M1 0h1v1H1zM2 1h1v1H2zM0 2h3v1H0z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Título de sección: una célula que parpadea como cursor. */
+.block-title::after {
+    content: ""; display: inline-block; vertical-align: middle;
+    width: 7px; height: 7px; margin-left: .5rem; background: var(--accent);
+    animation: cell-blink 1.2s steps(1) infinite;
+}
+@media (min-width: 1024px) { .block-title::after { opacity: .7; } }
+@keyframes cell-blink { 50% { opacity: 0; } }
+
+/* Barras como tiras de celdas. */
+.lb-fill, .bar-fill {
+    -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 8px);
+    mask-image: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 8px);
+}
+.lb-track, .bar { border-radius: 2px; }
+
+/* Línea de la navegación lateral: celdas que se encienden al activarse. */
+.nav-line {
+    height: 2px; background: repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 6px);
+    transition: width .35s steps(6), background-color .25s;
+}
+.side-nav a:hover .nav-line, .side-nav a[aria-current="true"] .nav-line { background: repeating-linear-gradient(90deg, var(--ink) 0 4px, transparent 4px 6px); }
+
+/* Chip activo: la palomita se vuelve una célula encendida. */
+.chip.on .chip-check { display: inline-block; width: 7px; height: 7px; font-size: 0; background: var(--accent); }
+
+/* Portadas: el autómata de fondo queda tenue y el pictograma al frente. */
+.cover-art {
+    position: relative; display: block; overflow: hidden;
+    width: 100%; height: auto; aspect-ratio: 2 / 1; margin-bottom: .6rem;
+    border-radius: 8px; border: 1px solid var(--line); background: var(--surface);
+    transition: border-color .25s var(--ease);
+}
+.cover-art .cover { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; border: 0; border-radius: 0; aspect-ratio: auto; background: none; }
+.cover-art.has-icon .cover path { opacity: .2; }
+/* Fuera del flujo: la caja manda con su proporción 2:1 y el ícono queda centrado. */
+.pictogram {
+    position: absolute; top: 50%; left: 50%; translate: -50% -50%;
+    width: 30%; aspect-ratio: 1; height: auto; padding: 4%; box-sizing: border-box;
+    color: var(--accent); background: color-mix(in srgb, var(--surface) 85%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 12px;
+    transition: scale .3s var(--ease-emphasized), rotate .3s var(--ease-emphasized);
+}
+.row:has(.cat-work) .pictogram { color: var(--accent-3); border-color: color-mix(in srgb, var(--accent-3) 35%, transparent); }
+.row:has(.cat-personal) .pictogram { color: var(--accent-2); border-color: color-mix(in srgb, var(--accent-2) 35%, transparent); }
+.row:hover .cover-art { border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+.row:hover .pictogram { scale: 1.08; rotate: -3deg; }
+.row:hover .cover-art.has-icon .cover path { opacity: .35; }
+@media (max-width: 639px) { .cover-art { max-width: 260px; } }
+
+/* Cambio de tema: el círculo crece a saltos, como una vecindad que se expande. */
+::view-transition-new(root) { animation: circle-in .6s steps(12, end); }
+
+/* Explosión de células al hacer clic (cells.js crea el lienzo). */
+.cell-burst { position: fixed; z-index: 40; width: 120px; height: 120px; pointer-events: none; image-rendering: pixelated; }
+
+@media (prefers-reduced-motion: reduce) {
+    .loader { animation: none; box-shadow: 0 14px var(--accent), 7px 0 var(--accent), 7px 14px var(--accent), 14px 7px var(--accent), 14px 14px var(--accent); }
+    .block-title::after { animation: none; }
+    .cell-burst { display: none; }
+}
+@media print {
+    .row::before, .block-title::after, .cell-burst { display: none !important; }
+}

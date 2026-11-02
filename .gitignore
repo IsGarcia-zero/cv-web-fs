@@ -1,0 +1,8 @@
+bin/
+obj/
+publish/
+.vs/
+*.user
+
+# Arnés local para tomar las capturas de los casos de estudio (no se publica).
+build/captures/

@@ -1,0 +1,85 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Domain/Text.fs" />
+    <Compile Include="Domain/Charts.fs" />
+    <Compile Include="Domain/Case.fs" />
+    <Compile Include="Domain/Concept.fs" />
+    <Compile Include="Domain/Cv.fs" />
+    <Compile Include="Domain/Automaton.fs" />
+    <Compile Include="Content/Labels.fs" />
+    <Compile Include="Content/Profile.fs" />
+    <Compile Include="Content/Experience.fs" />
+    <Compile Include="Content/ProjectKit.fs" />
+    <Compile Include="Content/ProjectsAcademic.fs" />
+    <Compile Include="Content/Projects.fs" />
+    <Compile Include="Content/Skills.fs" />
+    <Compile Include="Content/Education.fs" />
+    <Compile Include="Content/Activity.fs" />
+    <Compile Include="Content/DiagramKit.fs" />
+    <Compile Include="Content/Diagrams.fs" />
+    <Compile Include="Content/Career.fs" />
+    <Compile Include="Content/Lab.fs" />
+    <Compile Include="Content/CaseShots.fs" />
+    <Compile Include="Content/Cases/Physarum.fs" />
+    <Compile Include="Content/Cases/BleApp.fs" />
+    <Compile Include="Content/Cases/Gateway.fs" />
+    <Compile Include="Content/Cases/Migrations.fs" />
+    <Compile Include="Content/Cases/FieldApp.fs" />
+    <Compile Include="Content/Foundations.fs" />
+    <Compile Include="Content/Resume.fs" />
+    <Compile Include="Model/Model.fs" />
+    <Compile Include="Update/Effects.fs" />
+    <Compile Include="Update/Update.fs" />
+    <Compile Include="Views/Common.fs" />
+    <Compile Include="Views/Pictograms.fs" />
+    <Compile Include="Views/Visuals.fs" />
+    <Compile Include="Views/About.fs" />
+    <Compile Include="Views/Experience.fs" />
+    <Compile Include="Views/Education.fs" />
+    <Compile Include="Views/Achievements.fs" />
+    <Compile Include="Views/Skills.fs" />
+    <Compile Include="Views/Languages.fs" />
+    <Compile Include="Views/Interests.fs" />
+    <Compile Include="Views/Projects.fs" />
+    <Compile Include="Views/Systems.fs" />
+    <Compile Include="Views/CaseGallery.fs" />
+    <Compile Include="Views/Cases.fs" />
+    <Compile Include="Views/Lab.fs" />
+    <Compile Include="Views/Foundations.fs" />
+    <Compile Include="Views/Contact.fs" />
+    <Compile Include="Views/Sidebar.fs" />
+    <Compile Include="Views/MobileNav.fs" />
+    <Compile Include="Views/Page.fs" />
+    <Compile Include="Composition/LiveEffects.fs" />
+    <Compile Include="Composition/App.fs" />
+    <Compile Include="Composition/Startup.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bolero" Version="0.25.65" />
+    <PackageReference Include="Bolero.Build" Version="0.25.65" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.14" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- CV corto en PDF: se regenera antes de compilar sólo si cambió el contenido o la plantilla.
+       Si falta Edge, el build sigue y avisa. -->
+  <ItemGroup>
+    <ShortCvInput Include="Domain\*.fs;Content\**\*.fs;..\..\build\short-cv.fsx;..\..\build\short-cv.ps1" />
+  </ItemGroup>
+  <Target Name="ShortCvPdf" BeforeTargets="BeforeBuild" Condition="'$(OS)' == 'Windows_NT'"
+          Inputs="@(ShortCvInput)"
+          Outputs="wwwroot\pdf\Eduardo_Hernandez_Vergara_CV_ES.pdf;wwwroot\pdf\Eduardo_Hernandez_Vergara_CV_EN.pdf">
+    <Exec Command="powershell.exe -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\..\..\build\short-cv.ps1&quot;"
+          ContinueOnError="WarnAndContinue" />
+  </Target>
+
+</Project>
