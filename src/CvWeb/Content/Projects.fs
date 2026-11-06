@@ -78,8 +78,8 @@ let private work =
       |> withStatus privateCode
       project Work (Text.make "Pipeline de mediciones en C++20" "C++20 metering pipeline") (Text.same "2026")
           [ "C++20"; "NATS"; "PostgreSQL"; "S3"; "Docker" ] None
-          ("Reescritura de cinco servicios Quarkus a C++20 (~30 mil líneas) con contrapresión, arrendamientos y persistencia idempotente, sin cambiar sus contratos.",
-           "Rewrite of five Quarkus services in C++20 (~30k lines) with backpressure, leases, and idempotent persistence, keeping their contracts.")
+          ("Reescritura de cinco servicios Quarkus a C++20 (~30 mil líneas) con contrapresión, arrendamientos y persistencia idempotente, sin cambiar sus contratos. En reposo bajaron de unos 150 MB de RAM a unos 10 MB.",
+           "Rewrite of five Quarkus services in C++20 (~30k lines) with backpressure, leases, and idempotent persistence, keeping their contracts. Idle memory went from about 150 MB to about 10 MB.")
       |> art "cpp"
       |> withStatus privateCode ]
 
