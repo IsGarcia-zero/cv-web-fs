@@ -13,7 +13,7 @@ let timeline =
         [ span (Text.make "Técnico en Programación" "Programming Technician") "CECyT 9" 2017.6 2020.5 Schooling
           span (Text.make "Ing. en Sistemas Computacionales" "B.Sc. Computer Systems Eng.") "ESCOM · IPN" 2020.6 2024.95 Schooling
           span (Text.make "Investigación" "Research") "ALIROB" 2023.0 2025.05 Lab
-          span (Text.make "Analista .NET" ".NET Analyst") "IMPI" 2025.25 2025.5 Employment
+          span (Text.make "Desarrollador .NET" ".NET Developer") "IMPI" 2025.25 2025.5 Employment
           span (Text.make "Backend & Cloud" "Backend & Cloud") "Cantilever" 2025.5 2026.83 Employment ]
       Milestones =
         [ { Event = Text.make "Primer commit" "First commit"; At = 2020.15 }

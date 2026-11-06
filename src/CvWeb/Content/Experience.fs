@@ -53,7 +53,7 @@ let private cantilever =
       Stack = [ "AWS"; "SQS"; "S3"; "Go"; "NATS"; "Kubernetes"; "Azure"; "Docker"; "C#"; "F#"; "Avalonia"; "C++20"; "Java/Quarkus"; "Flutter"; "TypeScript"; "React"; "PostgreSQL"; "SQL Server" ] }
 
 let private impi =
-    { Role = Text.make "Analista Senior .NET" ".NET Senior Analyst"
+    { Role = Text.make "Desarrollador .NET Sr." "Sr .NET Developer"
       Company = Text.make "IMPI (Instituto Mexicano de la Propiedad Industrial)" "IMPI (Mexican Institute of Industrial Property)"
       Period = Text.make "Abr 2025 – Jun 2025" "Apr 2025 – Jun 2025"
       Summary = Text.make "" ""
@@ -67,7 +67,7 @@ let private impi =
       Stack = [ "C#"; ".NET"; "WinForms"; "Azure DevOps"; "Linux" ] }
 
 let private alirob =
-    { Role = Text.make "Integrante de investigación" "Research Member"
+    { Role = Text.make "Investigador en Robótica e IA" "Robotics and AI Researcher"
       Company = Text.same "ALIROB, Instituto Politécnico Nacional"
       Period = Text.make "Ene 2023 – Ene 2025" "Jan 2023 – Jan 2025"
       Summary = Text.make "" ""
