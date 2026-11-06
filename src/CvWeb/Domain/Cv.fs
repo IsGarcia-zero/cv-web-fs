@@ -75,7 +75,31 @@ type Achievement =
 /// Idiomas que habla la persona (no los de la interfaz).
 type Spoken = { Language: Text; Level: Text; Percent: int }
 
-type Stat = { Value: int; Suffix: string; Label: Text }
+/// Cifra de la portada: un conteo fijo, o los años desde un mes, que crecen solos con la fecha
+/// (con un decimal, o en años cumplidos con "+").
+type Amount =
+    | Count of value: int * suffix: string
+    | YearsSince of year: int * month: int
+    | WholeYearsSince of year: int * month: int
+
+type Stat = { Amount: Amount; Label: Text }
+
+module Stat =
+
+    /// Parte entera (la que anima `cv.js`) y el resto ya escrito. Los años llevan un decimal truncado,
+    /// así que avanzan casi cada mes: 19 meses se leen 1.5 y 20 meses, 1.6.
+    let figure (today: System.DateOnly) stat =
+        let monthsSince year month = max 0 ((today.Year - year) * 12 + today.Month - month)
+        match stat.Amount with
+        | Count(value, suffix) -> value, suffix
+        | YearsSince(year, month) ->
+            let tenths = monthsSince year month * 10 / 12
+            let decimal = if tenths % 10 = 0 then "" else $".{tenths % 10}"
+            tenths / 10, decimal
+        | WholeYearsSince(year, month) -> monthsSince year month / 12, "+"
+
+    /// Mínimo redondeado hacia abajo (524 con paso 50 → 500): sigue siendo cierto aunque el total crezca.
+    let atLeast step n = n / step * step
 
 /// Commits por mes: (año, 12 valores de enero a diciembre).
 type Activity =

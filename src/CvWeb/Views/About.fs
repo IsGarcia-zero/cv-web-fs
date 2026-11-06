@@ -6,14 +6,15 @@ open CvWeb.Content
 open CvWeb.Views.Common
 
 /// Cifras que `cv.js` anima al entrar en pantalla; sin JS se ve el valor final.
-let private stats lang (items: Stat list) =
+let private stats lang today (items: Stat list) =
     dl {
         cls "stats"
         forEach items (fun s ->
+            let value, suffix = Stat.figure today s
             div {
                 cls "stat"
                 dt { tr lang s.Label }
-                dd { span { "data-count" => s.Value; text (string s.Value) }; text s.Suffix }
+                dd { span { "data-count" => value; text (string value) }; text suffix }
             })
     }
 
@@ -33,18 +34,18 @@ let private activity lang (a: Activity) =
         div {
             cls "activity-head"
             h3 { tr lang Labels.activityTitle }
-            p { tr lang (Labels.activity a.Commits a.Repositories a.Since) }
+            p { tr lang (Labels.activity (Stat.atLeast 50 a.Commits) (Stat.atLeast 10 a.Repositories) a.Since) }
         }
         Visuals.heatmap lang a
         legend lang
     }
 
-let view lang (profile: Profile) (items: Stat list) (a: Activity) =
+let view lang today (profile: Profile) (items: Stat list) (a: Activity) =
     block "about" lang Labels.about (
         concat {
             p { cls "lead"; tr lang profile.Summary }
             ul { cls "highlights"; forEach profile.Highlights (fun h -> li { tr lang h }) }
-            stats lang items
+            stats lang today items
             activity lang a
         }
     )

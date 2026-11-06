@@ -18,6 +18,29 @@
     <meta property="og:image:alt" content="Eduardo Hernández Vergara · Backend &amp; Cloud · autómatas celulares" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://isgarcia-zero.github.io/img/og.png" />
+    <!-- Sin rel=canonical: el HTML es el mismo para ?lang=en y apuntar ambas a "/" anularía el hreflang. -->
+    <link rel="alternate" hreflang="es" href="https://isgarcia-zero.github.io/" />
+    <link rel="alternate" hreflang="en" href="https://isgarcia-zero.github.io/?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://isgarcia-zero.github.io/" />
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Eduardo Hernández Vergara",
+        "url": "https://isgarcia-zero.github.io/",
+        "image": "https://isgarcia-zero.github.io/img/eduardo.webp",
+        "jobTitle": "Backend Developer",
+        "email": "mailto:eduardo.hernandezv@proton.me",
+        "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de México", "addressCountry": "MX" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Escuela Superior de Cómputo, Instituto Politécnico Nacional" },
+        "knowsAbout": ["Backend", "Cloud", "Go", "AWS", "NATS", "Kubernetes", "Complex systems", "Cellular automata"],
+        "knowsLanguage": ["es", "en"],
+        "sameAs": [
+            "https://www.linkedin.com/in/eduardo-hernandez-vergara-369366246",
+            "https://github.com/IsGarcia-zero"
+        ]
+    }
+    </script>
     <base href="/" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,6 +72,7 @@
     <script src="js/lab.js"></script>
     <script src="js/tabs.js"></script>
     <script src="js/cells.js"></script>
+    <script src="js/selection.js"></script>
     <script src="js/egg.js"></script>
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
 </body>

@@ -4,5 +4,10 @@ publish/
 .vs/
 *.user
 
+# CV en PDF por perfil para subir a vacantes: se generan al compilar (build/short-cv.ps1).
+cv-perfiles/
+# Teléfono: sólo en esos PDF, nunca en el repositorio público ni en el sitio.
+build/telefono.txt
+
 # Arnés local para tomar las capturas de los casos de estudio (no se publica).
 build/captures/

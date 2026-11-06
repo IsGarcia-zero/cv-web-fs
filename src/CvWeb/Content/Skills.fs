@@ -6,7 +6,7 @@ let private group es en items = { Title = Text.make es en; Items = items }
 
 /// Lo que uso a diario va en sus grupos; lo que sólo he usado queda al final, aparte.
 let value =
-    [ group "Lenguajes" "Languages" [ "Go"; "C#"; "F#"; "C/C++"; "Java"; "TypeScript"; "JavaScript"; "Dart" ]
+    [ group "Lenguajes de programación" "Programming languages" [ "Go"; "C#"; "F#"; "C/C++"; "Java"; "TypeScript"; "JavaScript"; "Dart" ]
       group "Backend" "Backend" [ "NATS"; "REST / OpenAPI"; "gRPC"; "Quarkus"; "ASP.NET Core"; "Node.js"; "JWT" ]
       group "Nube (AWS)" "Cloud (AWS)" [ "SQS"; "S3"; "EC2"; "EKS"; "CloudTrail"; "EventBridge"; "DynamoDB"; "IAM / STS" ]
       group "Infraestructura" "Infrastructure" [ "Kubernetes"; "Kustomize"; "Docker"; "Azure"; "GitLab CI"; "GitHub Actions"; "Linux"; "Git" ]

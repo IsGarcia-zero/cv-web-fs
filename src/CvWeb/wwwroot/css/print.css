@@ -24,7 +24,7 @@
     #systems, #interests, .case-gallery, .case .arch, .physarum, .cover-art, .activity, .career, .lang-chart,
     #skills .sub-title, #skills .notes { display: none !important; }
     .row-meta:has(.cover-art, .physarum) { flex-direction: row; }
-    .automaton, .badge, .side-nav, .controls, .chips, .footer, .progress, .spotlight, .to-top, .toast, .skip, .more, .link-btn { display: none !important; }
+    .automaton, .badge, .side-nav, .controls, .chips, .footer, .progress, .spotlight, .to-top, .toast, .skip, .more, .link-btn, .selection-cells { display: none !important; }
     .bullets.collapsed .extra { display: list-item; }
     .anim .reveal { opacity: 1 !important; translate: 0 !important; }
     .anim .reveal:not(.visible) .bar-fill { scale: 1 1; }

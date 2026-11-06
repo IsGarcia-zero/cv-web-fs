@@ -3,16 +3,16 @@ module CvWeb.Content.Resume
 
 open CvWeb.Domain
 
-let private technologies =
-    Skills.value |> List.collect (fun g -> g.Items) |> List.distinct |> List.length
-
+/// Nada que actualizar a mano: los años avanzan con la fecha (industria desde abril de 2025,
+/// programación desde agosto de 2017), commits y repositorios se muestran como mínimos ("500+")
+/// y los proyectos se cuentan de la lista. La investigación (ene 2023 – ene 2025) ya terminó.
 let private stats =
-    [ { Value = 3; Suffix = "+"; Label = Text.make "Años de experiencia" "Years of experience" }
-      { Value = 9; Suffix = "+"; Label = Text.make "Años programando" "Years coding" }
-      { Value = Activity.value.Commits; Suffix = ""; Label = Text.make "Commits desde 2020" "Commits since 2020" }
-      { Value = Activity.value.Repositories; Suffix = ""; Label = Text.make "Repositorios" "Repositories" }
-      { Value = List.length Projects.value; Suffix = ""; Label = Text.make "Proyectos" "Projects" }
-      { Value = technologies; Suffix = "+"; Label = Text.make "Tecnologías" "Technologies" } ]
+    [ { Amount = YearsSince(2025, 4); Label = Text.make "Años en industria" "Years in industry" }
+      { Amount = Count(2, ""); Label = Text.make "Años en investigación" "Years in research" }
+      { Amount = WholeYearsSince(2017, 8); Label = Text.make "Años programando" "Years coding" }
+      { Amount = Count(Stat.atLeast 50 Activity.value.Commits, "+"); Label = Text.make "Commits desde 2020" "Commits since 2020" }
+      { Amount = Count(Stat.atLeast 10 Activity.value.Repositories, "+"); Label = Text.make "Repositorios" "Repositories" }
+      { Amount = Count(List.length Projects.value, ""); Label = Text.make "Proyectos" "Projects" } ]
 
 let value =
     { Profile = Profile.value

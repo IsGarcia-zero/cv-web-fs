@@ -3,7 +3,7 @@ module CvWeb.Update.Update
 open Elmish
 open CvWeb.Model
 
-let init (effects: Effects) resume = Model.init resume, effects.LoadPrefs
+let init (effects: Effects) resume today = Model.init resume today, effects.LoadPrefs
 
 let private setTheme (effects: Effects) theme (model: Model) =
     { model with Theme = theme }, effects.SaveTheme theme

@@ -21,6 +21,8 @@ h1, h2, h3, h4 { color: var(--ink); text-wrap: balance; letter-spacing: -.01em; 
 p, li { text-wrap: pretty; }
 strong { color: var(--ink); font-weight: 600; }
 ::selection { background: var(--accent); color: var(--on-accent); }
+/* Autómata sobre la selección (js/selection.js): sólo cambia el tono de las células, nunca el texto. */
+.selection-cells { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 60; }
 a { color: var(--ink); text-decoration: none; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 button { font: inherit; cursor: pointer; color: inherit; }

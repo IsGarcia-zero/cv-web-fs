@@ -25,6 +25,8 @@ type Model =
       Automaton: int
       Running: bool
       Seed: int
+      /// Fecha del día, para las cifras que crecen solas (años en industria).
+      Today: System.DateOnly
       Resume: Resume }
 
 type Msg =
@@ -64,7 +66,7 @@ module Theme =
 
 module Model =
 
-    let init resume =
+    let init resume today =
         { Lang = Es
           Theme = Dark
           Filter = None
@@ -76,6 +78,7 @@ module Model =
           Automaton = 0
           Running = true
           Seed = 0
+          Today = today
           Resume = resume }
 
     /// Índice válido de pestaña, dando la vuelta en los extremos (flechas del teclado).

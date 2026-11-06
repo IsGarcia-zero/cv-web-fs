@@ -57,10 +57,10 @@ let activityTitle = t "Actividad en git" "Git activity"
 let less = t "Menos" "Less"
 let more = t "Más" "More"
 
-/// "N commits en M repositorios desde X".
+/// "Más de N commits en más de M repositorios desde X", con N y M ya redondeados hacia abajo.
 let activity commits repos (since: Text) =
-    t $"{commits} commits en {repos} repositorios públicos y privados desde {since.Es}"
-        $"{commits} commits across {repos} public and private repositories since {since.En}"
+    t $"Más de {commits} commits en más de {repos} repositorios públicos y privados desde {since.Es}"
+        $"Over {commits} commits across {repos}+ public and private repositories since {since.En}"
 
 // ── Experiencia ──
 
@@ -122,7 +122,7 @@ let printFull = t "Imprimir la versión completa" "Print the full version"
 /// PDF corto (1–2 hojas) generado por build/short-cv.fsx con el mismo contenido.
 let pdfPath lang = $"pdf/Eduardo_Hernandez_Vergara_CV_{(Lang.code lang).ToUpperInvariant()}.pdf"
 
-let updated = t "Actualizado: octubre de 2026" "Updated: October 2026"
+let updated = t "Actualizado: noviembre de 2026" "Updated: November 2026"
 let builtWith = t "Hecho con F#, Bolero y Blazor WebAssembly." "Built with F#, Bolero, and Blazor WebAssembly."
 let sourceCode = t "Ver código" "View source"
 let sourceUrl = "https://github.com/IsGarcia-zero/cv-web-fs"

@@ -47,7 +47,7 @@ let view (model: Model) dispatch =
                 attr.id "content"
                 cls "content"
                 attr.tabindex -1
-                About.view lang r.Profile r.Stats r.Activity
+                About.view lang model.Today r.Profile r.Stats r.Activity
                 Experience.view model dispatch
                 Cases.view model dispatch
                 Systems.view model dispatch

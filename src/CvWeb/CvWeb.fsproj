@@ -73,7 +73,7 @@
   <!-- CV corto en PDF: se regenera antes de compilar sólo si cambió el contenido o la plantilla.
        Si falta Edge, el build sigue y avisa. -->
   <ItemGroup>
-    <ShortCvInput Include="Domain\*.fs;Content\**\*.fs;..\..\build\short-cv.fsx;..\..\build\short-cv.ps1" />
+    <ShortCvInput Include="Domain\*.fs;Content\**\*.fs;..\..\build\*.fsx;..\..\build\short-cv.css;..\..\build\*.txt;..\..\build\short-cv.ps1" />
   </ItemGroup>
   <Target Name="ShortCvPdf" BeforeTargets="BeforeBuild" Condition="'$(OS)' == 'Windows_NT'"
           Inputs="@(ShortCvInput)"

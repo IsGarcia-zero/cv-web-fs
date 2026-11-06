@@ -23,8 +23,14 @@
     const transition = change =>
         document.startViewTransition && !reducedMotion ? document.startViewTransition(change) : change();
 
+    // `?lang=en` gana a lo guardado: es el enlace que se manda a quien lee en inglés.
+    const linkedLang = () => {
+        const lang = new URLSearchParams(location.search).get("lang");
+        return lang === "es" || lang === "en" ? lang : null;
+    };
+
     window.cvSite = {
-        preferredLang: () => read("cv-lang") || (navigator.language || "es").toLowerCase(),
+        preferredLang: () => linkedLang() || read("cv-lang") || (navigator.language || "es").toLowerCase(),
         saveLang(lang) { root.lang = lang; write("cv-lang", lang); },
         preferredTheme: () => read("cv-theme") || systemTheme(),
         saveTheme(value) {
